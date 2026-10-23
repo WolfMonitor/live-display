@@ -174,10 +174,16 @@
 </main>
 
 <script>
-  // Die automatische FRET-Verbindung
-  // ergänzen wir im nächsten Schritt.
 
+  // Öffentliche FRET-Schnittstelle über Wix
+  const FRET_URL =
+    "https://www.line-dance-stuttgart.de/_functions/tapasLive";
+
+  let aktualisierungLaeuft = false;
+
+  // Tanznamen auf der Leinwand anzeigen
   function zeigeTaenze(daten) {
+
     document.getElementById("aktuell").textContent =
       daten.aktuell || "NO DANCE SELECTED";
 
@@ -191,6 +197,60 @@
     document.getElementById("tanz3").textContent =
       naechste[1] || "–";
   }
+
+  // Aktuelle Tanzdaten abrufen
+  async function aktualisiereTaenze() {
+
+    if (aktualisierungLaeuft) {
+      return;
+    }
+
+    aktualisierungLaeuft = true;
+
+    try {
+
+      const antwort = await fetch(FRET_URL, {
+        method: "GET",
+        cache: "no-store"
+      });
+
+      if (!antwort.ok) {
+        throw new Error(
+          "FRET-Verbindung: HTTP " + antwort.status
+        );
+      }
+
+      const daten = await antwort.json();
+
+      if (daten.fehler) {
+        throw new Error(daten.fehler);
+      }
+
+      zeigeTaenze(daten);
+
+    } catch (fehler) {
+
+      console.error(
+        "Fehler beim Laden der FRET-Tanzdaten:",
+        fehler
+      );
+
+      // Bei Verbindungsproblemen bleiben die
+      // zuletzt geladenen Tanznamen sichtbar.
+
+    } finally {
+
+      aktualisierungLaeuft = false;
+
+    }
+  }
+
+  // Sofort beim Öffnen aktualisieren
+  aktualisiereTaenze();
+
+  // Danach automatisch alle 3 Sekunden
+  setInterval(aktualisiereTaenze, 3000);
+
 </script>
 
 </body>
