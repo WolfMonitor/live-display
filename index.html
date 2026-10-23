@@ -8,6 +8,13 @@
 <title>Tapas – Live Dance Display</title>
 
 <style>
+  :root {
+    --cream: #fff7e8;
+    --red: #9e2e1b;
+    --brown: #69402b;
+    --gold: #d7a354;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -21,15 +28,17 @@
   }
 
   body {
-    background: #f4d6a3;
+    background: #f7e5c5;
   }
 
   .screen {
+    position: relative;
     width: 100vw;
     height: 100vh;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 2.5vh 4vw 5vh;
+    padding: 0 4vw 4vh;
 
     background-image:
       url("https://static.wixstatic.com/media/266187_d596ee7db9e24f73ae12bd2886f7d303~mv2.png");
@@ -40,104 +49,121 @@
   }
 
   /*
-   * Freiraum für den TAPAS-Schriftzug,
-   * der bereits im Hintergrundbild steht.
+   * Der TAPAS-Schriftzug befindet sich bereits
+   * in der vorhandenen Hintergrundgrafik.
+   * Deshalb kein zweiter HTML-Titel.
    */
   .top-space {
-    height: 29vh;
-    flex-shrink: 0;
+    flex: 0 0 39vh;
   }
 
   .dance-area {
-    width: 100%;
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2vh;
+    gap: 1.8vh;
   }
 
   .panel {
     min-width: 0;
-    background: #252932;
-    border: 3px solid #e9bd76;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(30, 20, 10, 0.28);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 18px;
+
+    box-shadow:
+      0 5px 18px rgba(85, 43, 20, 0.17);
+
     text-align: center;
   }
 
   .label {
-    color: #f5ca83;
+    color: var(--brown);
     font-weight: 800;
-    letter-spacing: 0.18em;
-    font-size: clamp(15px, 1.7vw, 32px);
+    font-size: clamp(14px, 1.45vw, 27px);
+    letter-spacing: 0.20em;
   }
 
   .dance-name {
-    color: #ffffff;
+    color: var(--red);
     font-weight: 900;
     text-transform: uppercase;
-    overflow-wrap: anywhere;
     line-height: 1.12;
+    overflow-wrap: anywhere;
+    max-width: 100%;
   }
 
   .current {
-    min-height: 0;
-    flex: 1.2;
-    padding: 2vh 3vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex: 1.15;
+    padding: 1.5vh 3vw;
   }
 
   .current .dance-name {
-    font-size: clamp(30px, 4.6vw, 88px);
-    margin-top: 1.5vh;
+    font-size: clamp(30px, 4.4vw, 82px);
+    margin-top: 1.3vh;
   }
 
   .next-row {
     flex: 1;
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 2vw;
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.8vw;
   }
 
   .next {
-    min-height: 0;
-    padding: 1.5vh 2vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 1.3vh 2vw;
   }
 
   .next .dance-name {
-    font-size: clamp(22px, 2.8vw, 54px);
-    margin-top: 1.5vh;
+    font-size: clamp(21px, 2.75vw, 52px);
+    margin-top: 1.2vh;
   }
 
-  /*
-   * Anpassung für Monitore mit
-   * geringerer Bildschirmhöhe.
-   */
-  @media (max-height: 600px) {
+  @media (max-height: 650px) {
     .top-space {
-      height: 25vh;
+      flex-basis: 35vh;
     }
 
-    .dance-area {
-      gap: 1.5vh;
+    .screen {
+      padding-bottom: 3vh;
     }
 
     .current .dance-name {
-      font-size: clamp(25px, 4vw, 70px);
+      font-size: clamp(26px, 4vw, 72px);
     }
 
     .next .dance-name {
-      font-size: clamp(20px, 2.5vw, 45px);
+      font-size: clamp(19px, 2.5vw, 45px);
+    }
+  }
+
+  @media (max-width: 650px) {
+    .top-space {
+      flex-basis: 32vh;
+    }
+
+    .label {
+      font-size: clamp(11px, 2.5vw, 18px);
+    }
+
+    .current .dance-name {
+      font-size: clamp(23px, 5vw, 42px);
+    }
+
+    .next .dance-name {
+      font-size: clamp(15px, 3.2vw, 26px);
+    }
+
+    .panel {
+      border-radius: 12px;
     }
   }
 </style>
@@ -147,7 +173,6 @@
 
 <main class="screen">
 
-  <!-- Platz für das TAPAS-Motiv im Hintergrund -->
   <div class="top-space"></div>
 
   <div class="dance-area">
@@ -178,7 +203,6 @@
 </main>
 
 <script>
-
   // Bestehende funktionierende FRET-Verbindung
   const FRET_URL =
     "https://www.line-dance-stuttgart.de/_functions/tapasLive";
@@ -186,7 +210,6 @@
   let aktualisierungLaeuft = false;
 
   function zeigeTaenze(daten) {
-
     document.getElementById("aktuell").textContent =
       daten.aktuell || "NO DANCE SELECTED";
 
@@ -202,15 +225,11 @@
   }
 
   async function aktualisiereTaenze() {
-
-    if (aktualisierungLaeuft) {
-      return;
-    }
+    if (aktualisierungLaeuft) return;
 
     aktualisierungLaeuft = true;
 
     try {
-
       const antwort = await fetch(FRET_URL, {
         method: "GET",
         cache: "no-store"
@@ -231,28 +250,23 @@
       zeigeTaenze(daten);
 
     } catch (fehler) {
-
       console.error(
         "Fehler beim Laden der FRET-Tanzdaten:",
         fehler
       );
 
-      // Die zuletzt geladenen Tanznamen
-      // bleiben bei Verbindungsproblemen sichtbar.
+      // Bei Verbindungsproblemen bleiben
+      // zuletzt geladene Tanznamen sichtbar.
 
     } finally {
-
       aktualisierungLaeuft = false;
-
     }
   }
 
-  // Beim Öffnen sofort laden
   aktualisiereTaenze();
 
-  // Alle drei Sekunden aktualisieren
+  // Automatische Aktualisierung alle 3 Sekunden
   setInterval(aktualisiereTaenze, 3000);
-
 </script>
 
 </body>
