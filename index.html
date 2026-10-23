@@ -9,7 +9,7 @@
 
 <style>
   :root {
-    --cream: #fff7e8;
+    --cream: rgba(255, 248, 233, 0.96);
     --red: #9e2e1b;
     --brown: #69402b;
     --gold: #d7a354;
@@ -35,13 +35,12 @@
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-height: 0;
     display: flex;
     flex-direction: column;
     padding: 0 4vw 4vh;
 
     background-image:
-      url("https://static.wixstatic.com/media/266187_d596ee7db9e24f73ae12bd2886f7d303~mv2.png");
+      url("https://static.wixstatic.com/media/266187_5c6f89cf151849518f459d37bc21f56f~mv2.png");
 
     background-position: center;
     background-size: cover;
@@ -49,9 +48,8 @@
   }
 
   /*
-   * Der TAPAS-Schriftzug befindet sich bereits
-   * in der vorhandenen Hintergrundgrafik.
-   * Deshalb kein zweiter HTML-Titel.
+   * Platz für den großen TAPAS-Schriftzug
+   * aus dem neuen Hintergrundbild.
    */
   .top-space {
     flex: 0 0 39vh;
@@ -173,6 +171,7 @@
 
 <main class="screen">
 
+  <!-- Freiraum für das TAPAS-Motiv -->
   <div class="top-space"></div>
 
   <div class="dance-area">
@@ -203,7 +202,7 @@
 </main>
 
 <script>
-  // Bestehende funktionierende FRET-Verbindung
+  // Funktionierende FRET-Verbindung über Wix
   const FRET_URL =
     "https://www.line-dance-stuttgart.de/_functions/tapasLive";
 
@@ -255,17 +254,17 @@
         fehler
       );
 
-      // Bei Verbindungsproblemen bleiben
-      // zuletzt geladene Tanznamen sichtbar.
+      // Zuletzt geladene Tänze bleiben sichtbar.
 
     } finally {
       aktualisierungLaeuft = false;
     }
   }
 
+  // Sofort laden
   aktualisiereTaenze();
 
-  // Automatische Aktualisierung alle 3 Sekunden
+  // Alle 3 Sekunden aktualisieren
   setInterval(aktualisiereTaenze, 3000);
 </script>
 
