@@ -38,8 +38,9 @@
     height: 100dvh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    padding: 0 4vw 3vh;
+    padding: 0 3vw 3vh;
 
     background-image:
       url("https://static.wixstatic.com/media/266187_5c6f89cf151849518f459d37bc21f56f~mv2.png");
@@ -50,15 +51,25 @@
   }
 
   /*
-   * Größerer Freiraum für den vollständigen
-   * TAPAS-Schriftzug samt Untertitel.
+   * Platz für den vollständigen TAPAS-Schriftzug
+   * und "EINE KULINARISCHE WELTREISE".
    */
   .top-space {
+    width: 100%;
     flex: 0 0 48%;
     min-height: 0;
   }
 
+  /*
+   * Alle Tanzfelder zusammen:
+   * nur noch 60 % der Bildschirmbreite.
+   */
   .dance-area {
+    width: 60%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+
     flex: 1;
     min-height: 0;
     display: flex;
@@ -101,16 +112,23 @@
     max-width: 100%;
   }
 
+  /*
+   * Aktueller Tanz:
+   * breit genug für "LANGSAMER WALZER".
+   */
   .current {
     flex: 1.05;
-    padding: 1vh 3vw;
+    padding: 1vh 2vw;
   }
 
   .current .dance-name {
-    font-size: clamp(27px, 4.1vw, 78px);
+    font-size: clamp(27px, 3.4vw, 65px);
     margin-top: 1vh;
   }
 
+  /*
+   * Zwei kleinere Felder nebeneinander.
+   */
   .next-row {
     flex: 1;
     min-height: 0;
@@ -119,18 +137,21 @@
     grid-template-columns:
       minmax(0, 1fr) minmax(0, 1fr);
 
-    gap: 1.8vw;
+    gap: 1.5vw;
   }
 
   .next {
-    padding: 1vh 2vw;
+    padding: 1vh 1vw;
   }
 
   .next .dance-name {
-    font-size: clamp(20px, 2.6vw, 48px);
+    font-size: clamp(20px, 2.1vw, 40px);
     margin-top: 0.8vh;
   }
 
+  /*
+   * Kleinere Bildschirmhöhen.
+   */
   @media (max-height: 650px) {
     .top-space {
       flex-basis: 45%;
@@ -141,29 +162,36 @@
     }
 
     .current .dance-name {
-      font-size: clamp(24px, 3.7vw, 65px);
+      font-size: clamp(24px, 3vw, 55px);
     }
 
     .next .dance-name {
-      font-size: clamp(18px, 2.3vw, 40px);
+      font-size: clamp(18px, 1.9vw, 35px);
     }
   }
 
-  @media (max-width: 650px) {
+  /*
+   * Anpassung für schmale Bildschirme.
+   */
+  @media (max-width: 800px) {
+    .dance-area {
+      width: 88%;
+    }
+
     .top-space {
-      flex-basis: 40%;
+      flex-basis: 42%;
     }
 
     .label {
-      font-size: clamp(11px, 2.5vw, 18px);
+      font-size: clamp(11px, 2.2vw, 18px);
     }
 
     .current .dance-name {
-      font-size: clamp(22px, 4.8vw, 40px);
+      font-size: clamp(22px, 4.2vw, 40px);
     }
 
     .next .dance-name {
-      font-size: clamp(14px, 3vw, 25px);
+      font-size: clamp(14px, 2.6vw, 25px);
     }
 
     .panel {
@@ -177,7 +205,7 @@
 
 <main class="screen">
 
-  <!-- Platz für TAPAS und den vollständigen Untertitel -->
+  <!-- Freiraum für TAPAS und den Untertitel -->
   <div class="top-space"></div>
 
   <div class="dance-area">
@@ -260,17 +288,17 @@
         fehler
       );
 
-      // Bereits geladene Tanznamen bleiben sichtbar.
+      // Zuletzt geladene Tanznamen bleiben sichtbar.
 
     } finally {
       aktualisierungLaeuft = false;
     }
   }
 
-  // Sofort laden
+  // Beim Öffnen sofort laden
   aktualisiereTaenze();
 
-  // Automatisch alle 3 Sekunden aktualisieren
+  // Automatisch alle drei Sekunden aktualisieren
   setInterval(aktualisiereTaenze, 3000);
 </script>
 
