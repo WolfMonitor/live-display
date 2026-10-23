@@ -29,13 +29,9 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 3vh 4vw 5vh;
+    padding: 2.5vh 4vw 5vh;
 
     background-image:
-      linear-gradient(
-        rgba(255, 246, 222, 0.10),
-        rgba(255, 246, 222, 0.10)
-      ),
       url("https://static.wixstatic.com/media/266187_d596ee7db9e24f73ae12bd2886f7d303~mv2.png");
 
     background-position: center;
@@ -43,58 +39,43 @@
     background-repeat: no-repeat;
   }
 
-  .header {
-    align-self: center;
-    text-align: center;
-    padding: 1.5vh 4vw;
-    border-radius: 20px;
-    background: rgba(255, 245, 220, .94);
-    box-shadow: 0 5px 22px rgba(80, 30, 10, .20);
-  }
-
-  .title {
-    font-size: clamp(40px, 6vw, 110px);
-    line-height: 1;
-    font-weight: 900;
-    color: #ae2c17;
-    letter-spacing: .03em;
-  }
-
-  .subtitle {
-    margin-top: 1vh;
-    font-size: clamp(15px, 1.6vw, 30px);
-    font-weight: 800;
-    color: #62361e;
-    text-transform: uppercase;
-    letter-spacing: .12em;
+  /*
+   * Freiraum für den TAPAS-Schriftzug,
+   * der bereits im Hintergrundbild steht.
+   */
+  .top-space {
+    height: 29vh;
+    flex-shrink: 0;
   }
 
   .dance-area {
     width: 100%;
-    margin: auto 0;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 2.5vh;
+    justify-content: center;
+    gap: 2vh;
   }
 
   .panel {
     min-width: 0;
-    background: rgba(31, 35, 44, .96);
-    border: 3px solid #f1c27a;
-    border-radius: 22px;
-    box-shadow: 0 8px 28px rgba(35, 20, 10, .28);
+    background: #252932;
+    border: 3px solid #e9bd76;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(30, 20, 10, 0.28);
     text-align: center;
   }
 
   .label {
     color: #f5ca83;
     font-weight: 800;
-    letter-spacing: .18em;
-    font-size: clamp(16px, 1.8vw, 34px);
+    letter-spacing: 0.18em;
+    font-size: clamp(15px, 1.7vw, 32px);
   }
 
   .dance-name {
-    color: white;
+    color: #ffffff;
     font-weight: 900;
     text-transform: uppercase;
     overflow-wrap: anywhere;
@@ -102,35 +83,62 @@
   }
 
   .current {
-    min-height: 26vh;
+    min-height: 0;
+    flex: 1.2;
     padding: 2vh 3vw;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
 
   .current .dance-name {
-    font-size: clamp(32px, 5vw, 95px);
-    margin-top: 2vh;
+    font-size: clamp(30px, 4.6vw, 88px);
+    margin-top: 1.5vh;
   }
 
   .next-row {
+    flex: 1;
+    min-height: 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 2vw;
   }
 
   .next {
-    min-height: 21vh;
-    padding: 2vh 2vw;
+    min-height: 0;
+    padding: 1.5vh 2vw;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
 
   .next .dance-name {
-    font-size: clamp(23px, 3vw, 58px);
+    font-size: clamp(22px, 2.8vw, 54px);
     margin-top: 1.5vh;
+  }
+
+  /*
+   * Anpassung für Monitore mit
+   * geringerer Bildschirmhöhe.
+   */
+  @media (max-height: 600px) {
+    .top-space {
+      height: 25vh;
+    }
+
+    .dance-area {
+      gap: 1.5vh;
+    }
+
+    .current .dance-name {
+      font-size: clamp(25px, 4vw, 70px);
+    }
+
+    .next .dance-name {
+      font-size: clamp(20px, 2.5vw, 45px);
+    }
   }
 </style>
 </head>
@@ -139,12 +147,8 @@
 
 <main class="screen">
 
-  <header class="header">
-    <div class="title">TAPAS</div>
-    <div class="subtitle">
-      Eine kulinarische Weltreise
-    </div>
-  </header>
+  <!-- Platz für das TAPAS-Motiv im Hintergrund -->
+  <div class="top-space"></div>
 
   <div class="dance-area">
 
@@ -175,13 +179,12 @@
 
 <script>
 
-  // Öffentliche FRET-Schnittstelle über Wix
+  // Bestehende funktionierende FRET-Verbindung
   const FRET_URL =
     "https://www.line-dance-stuttgart.de/_functions/tapasLive";
 
   let aktualisierungLaeuft = false;
 
-  // Tanznamen auf der Leinwand anzeigen
   function zeigeTaenze(daten) {
 
     document.getElementById("aktuell").textContent =
@@ -198,7 +201,6 @@
       naechste[1] || "–";
   }
 
-  // Aktuelle Tanzdaten abrufen
   async function aktualisiereTaenze() {
 
     if (aktualisierungLaeuft) {
@@ -235,8 +237,8 @@
         fehler
       );
 
-      // Bei Verbindungsproblemen bleiben die
-      // zuletzt geladenen Tanznamen sichtbar.
+      // Die zuletzt geladenen Tanznamen
+      // bleiben bei Verbindungsproblemen sichtbar.
 
     } finally {
 
@@ -245,10 +247,10 @@
     }
   }
 
-  // Sofort beim Öffnen aktualisieren
+  // Beim Öffnen sofort laden
   aktualisiereTaenze();
 
-  // Danach automatisch alle 3 Sekunden
+  // Alle drei Sekunden aktualisieren
   setInterval(aktualisiereTaenze, 3000);
 
 </script>
