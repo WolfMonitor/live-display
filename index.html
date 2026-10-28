@@ -5,14 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tapas – Live Dance Display</title>
+<title>Griechischer Abend – Live Dance Display</title>
 
 <style>
   :root {
-    --cream: rgba(255, 248, 233, 0.96);
-    --red: #9e2e1b;
-    --brown: #69402b;
-    --gold: #d7a354;
+    --white: rgba(255, 255, 255, 0.96);
+    --blue: #075b9e;
+    --dark-blue: #063b70;
+    --gold: #d9b36b;
   }
 
   * {
@@ -28,7 +28,7 @@
   }
 
   body {
-    background: #f7e5c5;
+    background: #075b9e;
   }
 
   .screen {
@@ -36,6 +36,7 @@
     width: 100vw;
     height: 100vh;
     height: 100dvh;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +44,7 @@
     padding: 0 3vw 3vh;
 
     background-image:
-      url("https://static.wixstatic.com/media/266187_5c6f89cf151849518f459d37bc21f56f~mv2.png");
+      url("https://static.wixstatic.com/media/266187_605edf485a4041b38f1b19a0357f76f3~mv2.png");
 
     background-position: center;
     background-size: cover;
@@ -51,29 +52,64 @@
   }
 
   /*
-   * Platz für den vollständigen TAPAS-Schriftzug
-   * und "EINE KULINARISCHE WELTREISE".
+   * Oberer Bereich für den Veranstaltungstitel
+   * und die Griechenland-Landschaft.
    */
+
   .top-space {
     width: 100%;
     flex: 0 0 48%;
     min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 3vh;
+    text-align: center;
+  }
+
+  .event-title {
+    color: #ffffff;
+    font-size: clamp(34px, 5vw, 96px);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+
+    text-shadow:
+      0 3px 8px rgba(0, 28, 60, 0.85),
+      0 0 20px rgba(0, 28, 60, 0.55);
+  }
+
+  .event-subtitle {
+    color: #ffffff;
+    font-size: clamp(16px, 1.8vw, 34px);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+
+    margin-top: 1vh;
+
+    text-shadow:
+      0 2px 7px rgba(0, 28, 60, 0.85);
   }
 
   /*
-   * Alle Tanzfelder zusammen:
-   * nur noch 60 % der Bildschirmbreite.
+   * Tanzfelder – 60 % Bildschirmbreite.
    */
+
   .dance-area {
     width: 60%;
     max-width: 1100px;
+
     margin-left: auto;
     margin-right: auto;
 
     flex: 1;
     min-height: 0;
+
     display: flex;
     flex-direction: column;
+
     gap: 1.5vh;
   }
 
@@ -86,36 +122,40 @@
     justify-content: center;
     align-items: center;
 
-    background: var(--cream);
+    background: var(--white);
+
     border: 2px solid var(--gold);
     border-radius: 16px;
 
     box-shadow:
-      0 5px 18px rgba(85, 43, 20, 0.17);
+      0 5px 18px rgba(0, 40, 85, 0.25);
 
     text-align: center;
   }
 
   .label {
-    color: var(--brown);
+    color: var(--blue);
     font-weight: 800;
+
     font-size: clamp(13px, 1.35vw, 25px);
     letter-spacing: 0.18em;
   }
 
   .dance-name {
-    color: var(--red);
+    color: var(--dark-blue);
     font-weight: 900;
+
     text-transform: uppercase;
     line-height: 1.08;
+
     overflow-wrap: anywhere;
     max-width: 100%;
   }
 
   /*
-   * Aktueller Tanz:
-   * breit genug für "LANGSAMER WALZER".
+   * Aktueller Tanz.
    */
+
   .current {
     flex: 1.05;
     padding: 1vh 2vw;
@@ -127,13 +167,15 @@
   }
 
   /*
-   * Zwei kleinere Felder nebeneinander.
+   * Nächste zwei Tänze.
    */
+
   .next-row {
     flex: 1;
     min-height: 0;
 
     display: grid;
+
     grid-template-columns:
       minmax(0, 1fr) minmax(0, 1fr);
 
@@ -152,7 +194,9 @@
   /*
    * Kleinere Bildschirmhöhen.
    */
+
   @media (max-height: 650px) {
+
     .top-space {
       flex-basis: 45%;
     }
@@ -171,15 +215,25 @@
   }
 
   /*
-   * Anpassung für schmale Bildschirme.
+   * Schmale Bildschirme.
    */
+
   @media (max-width: 800px) {
+
     .dance-area {
       width: 88%;
     }
 
     .top-space {
       flex-basis: 42%;
+    }
+
+    .event-title {
+      font-size: clamp(26px, 5vw, 46px);
+    }
+
+    .event-subtitle {
+      font-size: clamp(13px, 2.3vw, 20px);
     }
 
     .label {
@@ -205,28 +259,60 @@
 
 <main class="screen">
 
-  <!-- Freiraum für TAPAS und den Untertitel -->
-  <div class="top-space"></div>
+  <!-- Veranstaltungstitel -->
+
+  <div class="top-space">
+
+    <div class="event-title">
+      GRIECHISCHER ABEND
+    </div>
+
+    <div class="event-subtitle">
+      KALÓS ÍRTHATE · WILLKOMMEN
+    </div>
+
+  </div>
+
+  <!-- Tanzanzeige -->
 
   <div class="dance-area">
 
     <section class="panel current">
-      <div class="label">NOW DANCING</div>
+
+      <div class="label">
+        NOW DANCING
+      </div>
+
       <div class="dance-name" id="aktuell">
         Verbindung wird vorbereitet ...
       </div>
+
     </section>
 
     <div class="next-row">
 
       <section class="panel next">
-        <div class="label">UP NEXT</div>
-        <div class="dance-name" id="tanz2">–</div>
+
+        <div class="label">
+          UP NEXT
+        </div>
+
+        <div class="dance-name" id="tanz2">
+          –
+        </div>
+
       </section>
 
       <section class="panel next">
-        <div class="label">COMING SOON</div>
-        <div class="dance-name" id="tanz3">–</div>
+
+        <div class="label">
+          COMING SOON
+        </div>
+
+        <div class="dance-name" id="tanz3">
+          –
+        </div>
+
       </section>
 
     </div>
@@ -236,13 +322,23 @@
 </main>
 
 <script>
-  // Bestehende funktionierende FRET-Verbindung
+
+  /*
+   * Bestehende funktionierende FRET-Verbindung.
+   * Unverändert übernommen.
+   */
+
   const FRET_URL =
     "https://www.line-dance-stuttgart.de/_functions/tapasLive";
 
   let aktualisierungLaeuft = false;
 
+  /*
+   * Tanznamen anzeigen.
+   */
+
   function zeigeTaenze(daten) {
+
     document.getElementById("aktuell").textContent =
       daten.aktuell || "NO DANCE SELECTED";
 
@@ -257,12 +353,18 @@
       naechste[1] || "–";
   }
 
+  /*
+   * Daten automatisch laden.
+   */
+
   async function aktualisiereTaenze() {
+
     if (aktualisierungLaeuft) return;
 
     aktualisierungLaeuft = true;
 
     try {
+
       const antwort = await fetch(FRET_URL, {
         method: "GET",
         cache: "no-store"
@@ -283,23 +385,36 @@
       zeigeTaenze(daten);
 
     } catch (fehler) {
+
       console.error(
         "Fehler beim Laden der FRET-Tanzdaten:",
         fehler
       );
 
-      // Zuletzt geladene Tanznamen bleiben sichtbar.
+      /*
+       * Zuletzt geladene Tanznamen
+       * bleiben weiterhin sichtbar.
+       */
 
     } finally {
+
       aktualisierungLaeuft = false;
+
     }
   }
 
-  // Beim Öffnen sofort laden
+  /*
+   * Beim Öffnen sofort laden.
+   */
+
   aktualisiereTaenze();
 
-  // Automatisch alle drei Sekunden aktualisieren
+  /*
+   * Alle drei Sekunden aktualisieren.
+   */
+
   setInterval(aktualisiereTaenze, 3000);
+
 </script>
 
 </body>
